@@ -1,0 +1,97 @@
+/* Reset và cấu hình cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    background: #eae3e0;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Định dạng header cố định với full chiều rộng */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 100px;
+    background: #edad2d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Sửa lại từ align-content để canh giữa theo chiều dọc */
+    z-index: 99;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Thêm shadow để tạo chiều sâu */
+}
+
+/* Logo */
+.logo {
+    font-size: 2em;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Định dạng cho menu điều hướng */
+.navigation a {
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: color .3s; /* Hiệu ứng chuyển màu khi hover */
+}
+
+.navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+/* Định dạng nút Login */
+.navigation .btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: #fff;
+    color: #162938;
+}
+
+/* Thêm khoảng cách khi header cố định */
+body {
+    padding-top: 100px; /* Thêm khoảng cách phía trên để nội dung không bị che bởi header */
+}
+
+
