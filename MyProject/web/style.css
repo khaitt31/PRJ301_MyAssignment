@@ -94,4 +94,58 @@ body {
     padding-top: 100px; /* Thêm khoảng cách phía trên để nội dung không bị che bởi header */
 }
 
+/* Định dạng cho phần chứa ảnh */
 
+/* Định dạng cho phần chứa cả hai khung hình */
+/* Đảm bảo container không vượt quá chiều rộng màn hình */
+.image-container {
+    display: flex;
+    justify-content: space-between; /* Tạo khoảng cách đều giữa các phần tử */
+    flex-wrap: wrap; /* Đảm bảo nếu màn hình nhỏ, các khung sẽ xuống dòng */
+    gap: 20px; /* Khoảng cách giữa các phần tử */
+    max-width: 100%; /* Giới hạn chiều rộng không quá khung nhìn */
+    padding: 0 20px; /* Thêm khoảng cách trái và phải cho container */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước container */
+    margin: 0 auto; /* Canh giữa container */
+}
+
+/* Điều chỉnh chiều rộng của image-box */
+.image-box {
+    flex: 1 1 220px; /* Đảm bảo các phần tử co giãn đều nhau và có chiều rộng tối thiểu là 220px */
+    text-align: center;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.5s ease, border-color 0.5s ease, transform 0.5s ease;
+    background-color: #f9f3f0;
+    max-width: 250px; /* Giới hạn chiều rộng tối đa cho khung */
+    border: 1px solid #ddd;
+}
+
+/* Định dạng cho image-frame và ảnh */
+.image-frame {
+    width: 100%;
+    height: 150px; /* Cố định chiều cao khung ảnh */
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo ảnh vừa với khung và không bị biến dạng */
+    transition: transform 0.5s ease;
+}
+
+/* Giữ nội dung canh giữa và không tràn */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f4f4f4;
+    box-sizing: border-box;
+    padding-top: 100px; /* Đảm bảo header cố định không che nội dung */
+}
