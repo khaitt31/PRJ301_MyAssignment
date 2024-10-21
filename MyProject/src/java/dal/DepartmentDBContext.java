@@ -4,20 +4,55 @@
  */
 package dal;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import dal.DBContext;
 import java.util.ArrayList;
+import model.productionplan.Department;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Department;
-import model.Employee;
 
 /**
  *
- * @author ADMIN
+ * @author sonnt-local
  */
 public class DepartmentDBContext extends DBContext<Department> {
+
+    public ArrayList<Department> get(String type) {
+        ArrayList<Department> depts = new ArrayList<>();
+        
+        String sql = "SELECT [did]\n"
+                + "      ,[dname]\n"
+                + "      ,[dtype]\n"
+                + "  FROM [Pro1].[dbo].[Department]\n"
+                + "  WHERE dtype = ?";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, type);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+            {
+                Department d = new Department();
+                d.setId(rs.getInt("did"));
+                d.setName(rs.getString("dname"));
+                d.setType(rs.getString("dtype"));
+                depts.add(d);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return depts;
+    }
 
     @Override
     public void insert(Department model) {
@@ -36,37 +71,12 @@ public class DepartmentDBContext extends DBContext<Department> {
 
     @Override
     public ArrayList<Department> list() {
-        
-        ArrayList<Department> depts = new ArrayList<>();
-        PreparedStatement stm = null;
-        try {
-            String sql = "SELECT did,dname FROM Department";
-
-            stm = connection.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Department d = new Department();
-                d.setId(rs.getInt("did"));
-                d.setName(rs.getString("dname"));
-                depts.add(d);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                stm.close();
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return depts;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Department get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
