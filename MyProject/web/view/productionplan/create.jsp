@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/productionplan.css">
     </head>
     <body>
         <form action="create" method="POST"> 
@@ -39,6 +40,12 @@
                 </c:forEach>
             </table>
             <input type="submit" name="Save"/>
+            <%-- Hiển thị thông báo khi có thuộc tính message --%>
+            <c:if test="${not empty message}">
+                <div style="color: green; font-weight: bold; margin-top: 10px;">
+                    ${message}
+                </div>
+            </c:if>
         </form>
     </body>
 </html>

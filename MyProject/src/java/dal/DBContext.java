@@ -21,7 +21,7 @@ public abstract class DBContext<T> {
     {
         String user="khai";
         String pass = "123";
-        String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=Pro1;trustServerCertificate=true;";
+        String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=Pro1 ;trustServerCertificate=true;";
         
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

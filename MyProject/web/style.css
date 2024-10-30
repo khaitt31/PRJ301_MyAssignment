@@ -1,151 +1,93 @@
-/* Reset và cấu hình cơ bản */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    min-height: 100vh;
-    background: #eae3e0;
-    background-size: cover;
-    background-position: center;
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
 }
 
-/* Định dạng header cố định với full chiều rộng */
+/* Header */
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px 100px;
-    background: #edad2d;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Sửa lại từ align-content để canh giữa theo chiều dọc */
-    z-index: 99;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Thêm shadow để tạo chiều sâu */
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #ECAB2D;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Logo */
-.logo {
-    font-size: 2em;
-    color: #ffffff;
+header .logo {
+    font-size: 24px;
     font-weight: bold;
 }
 
-/* Định dạng cho menu điều hướng */
 .navigation a {
-    position: relative;
-    font-size: 1.1em;
-    color: #fff;
+    margin-left: 20px;
+    color: #ffffff;
     text-decoration: none;
-    font-weight: 500;
-    margin-left: 40px;
-    transition: color .3s; /* Hiệu ứng chuyển màu khi hover */
+    font-size: 16px;
+    padding: 8px 15px;
+    transition: background 0.3s, color 0.3s;
 }
 
-.navigation a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 3px;
-    background: #fff;
-    border-radius: 5px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s;
+.navigation a:hover {
+    background-color: #6c757d;
+    color: #ffffff;
+    border-radius: 4px;
 }
 
-.navigation a:hover::after {
-    transform-origin: left;
-    transform: scaleX(1);
+.btnLogin-popup {
+    background-color: #45a049;
+    padding: 8px 15px;
+    border-radius: 4px;
 }
 
-/* Định dạng nút Login */
-.navigation .btnLogin-popup {
-    width: 130px;
-    height: 50px;
-    background: transparent;
-    border: 2px solid #fff;
-    outline: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.1em;
-    color: #fff;
-    font-weight: 500;
-    margin-left: 40px;
-    transition: .5s;
+.btnLogin-popup:hover {
+    background-color: #31b0d5;
 }
 
-.navigation .btnLogin-popup:hover {
-    background: #fff;
-    color: #162938;
-}
-
-/* Thêm khoảng cách khi header cố định */
-body {
-    padding-top: 100px; /* Thêm khoảng cách phía trên để nội dung không bị che bởi header */
-}
-
-/* Định dạng cho phần chứa ảnh */
-
-/* Định dạng cho phần chứa cả hai khung hình */
-/* Đảm bảo container không vượt quá chiều rộng màn hình */
+/* Image Container */
 .image-container {
     display: flex;
-    justify-content: space-between; /* Tạo khoảng cách đều giữa các phần tử */
-    flex-wrap: wrap; /* Đảm bảo nếu màn hình nhỏ, các khung sẽ xuống dòng */
-    gap: 20px; /* Khoảng cách giữa các phần tử */
-    max-width: 100%; /* Giới hạn chiều rộng không quá khung nhìn */
-    padding: 0 20px; /* Thêm khoảng cách trái và phải cho container */
-    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước container */
-    margin: 0 auto; /* Canh giữa container */
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
 }
 
-/* Điều chỉnh chiều rộng của image-box */
 .image-box {
-    flex: 1 1 220px; /* Đảm bảo các phần tử co giãn đều nhau và có chiều rộng tối thiểu là 220px */
     text-align: center;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.5s ease, border-color 0.5s ease, transform 0.5s ease;
-    background-color: #f9f3f0;
-    max-width: 250px; /* Giới hạn chiều rộng tối đa cho khung */
-    border: 1px solid #ddd;
+    margin: 20px;
 }
 
-/* Định dạng cho image-frame và ảnh */
 .image-frame {
-    width: 100%;
-    height: 150px; /* Cố định chiều cao khung ảnh */
-    margin: 0 auto;
     overflow: hidden;
+    width: 300px;
+    height: 200px;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
 }
 
 .image-frame img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Đảm bảo ảnh vừa với khung và không bị biến dạng */
-    transition: transform 0.5s ease;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
-/* Giữ nội dung canh giữa và không tràn */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #f4f4f4;
-    box-sizing: border-box;
-    padding-top: 100px; /* Đảm bảo header cố định không che nội dung */
+.image-box p {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.image-frame:hover {
+    transform: scale(1.05);
 }
