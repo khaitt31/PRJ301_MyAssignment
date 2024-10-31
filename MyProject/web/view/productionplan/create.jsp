@@ -11,45 +11,156 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create Production Plan</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/productionplan.css">
+
+        <style>
+            /* Reset and setup */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                color: #333;
+            }
+
+            /* Main container */
+            .container {
+                width: 100%;
+                max-width: 600px;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+
+            h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333;
+            }
+
+            /* Notification message */
+            .message {
+                color: green;
+                margin-bottom: 15px;
+                font-size: 14px;
+                text-align: center;
+            }
+
+            /* Form elements */
+            form label {
+                font-size: 14px;
+                color: #555;
+                display: block;
+                margin-top: 15px;
+                text-align: left;
+            }
+
+            form input[type="date"],
+            form input[type="text"],
+            form input[type="number"],
+            form select {
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+
+            /* Submit button styling */
+            .btn-submit {
+                background-color: #4CAF50;
+                color: #fff;
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                width: 100%;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-submit:hover {
+                background-color: #45a049;
+            }
+
+            /* Table styling */
+            .product-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 15px;
+            }
+
+            .product-table th, .product-table td {
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+            }
+
+            .product-table th {
+                background-color: #f2f2f2;
+                color: #333;
+                font-weight: bold;
+            }
+
+            .product-table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+        </style>
     </head>
     <body>
-        <h2>Create New Production Plan</h2>
-        
-        <%-- Hiển thị thông báo nếu có trong session --%>
-        <c:if test="${not empty sessionScope.message}">
-            <div style="color: green;">
-                ${sessionScope.message}
-            </div>
-            <c:remove var="message" scope="session"/>
-        </c:if>
+        <div class="container">
+            <h2>Create New Production Plan</h2>
 
-        <form action="create" method="POST"> 
-            From: <input type="date" name="from" required /> 
-            To: <input type="date" name="to" required/>
-            <br/>
-            Workshop: 
-            <select name="did" required>
-                <c:forEach items="${depts}" var="d">
-                    <option value="${d.id}">${d.name}</option>
-                </c:forEach>
-            </select>
-            <br/>
-            <table border="1">
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Estimated Effort</th>
-                </tr>
-                <c:forEach items="${products}" var="p">
+            <%-- Display session message if available --%>
+            <c:if test="${not empty sessionScope.message}">
+                <div class="message">
+                    ${sessionScope.message}
+                </div>
+                <c:remove var="message" scope="session"/>
+            </c:if>
+
+            <form action="create" method="POST">
+                <label>From:</label>
+                <input type="date" name="from" required />
+                
+                <label>To:</label>
+                <input type="date" name="to" required/>
+                
+                <label>Workshop:</label>
+                <select name="did" required>
+                    <c:forEach items="${depts}" var="d">
+                        <option value="${d.id}">${d.name}</option>
+                    </c:forEach>
+                </select>
+                
+                <table class="product-table">
                     <tr>
-                        <td>${p.name}<input type="hidden" name="pid" value="${p.id}"/></td>
-                        <td><input type="number" name="quantity${p.id}" min="0" required/></td>
-                        <td><input type="number" step="0.1" name="effort${p.id}" min="0" required/></td>
-                    </tr>   
-                </c:forEach>
-            </table>
-            <input type="submit" value="Save"/>
-        </form>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Estimated Effort (hours)</th>
+                    </tr>
+                    <c:forEach items="${products}" var="p">
+                        <tr>
+                            <td>${p.name}<input type="hidden" name="pid" value="${p.id}"/></td>
+                            <td><input type="number" name="quantity${p.id}" min="0" required/></td>
+                            <td><input type="number" step="0.1" name="effort${p.id}" min="0" required/></td>
+                        </tr>   
+                    </c:forEach>
+                </table>
+
+                <input type="submit" class="btn-submit" value="Save"/>
+            </form>
+        </div>
     </body>
 </html>

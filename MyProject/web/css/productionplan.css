@@ -40,6 +40,7 @@ h2 {
     color: #333;
     font-size: 24px;
     text-align: center;
+    justify-content: center;
 }
 
 /* Form label and input styling */
