@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Oct 15, 2024, 9:16:17 PM
-    Author     : ADMIN
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -37,6 +31,12 @@
             .login-container h2 {
                 margin-bottom: 20px;
                 color: #333;
+            }
+
+            .error-message {
+                color: red;
+                font-size: 14px;
+                margin-bottom: 10px;
             }
 
             .login-container input[type="text"],
@@ -76,13 +76,17 @@
     <body>
         <div class="login-container">
             <h2>Login</h2>
-            <form action="login" method="POST">
+
+            <!-- Hiển thị thông báo lỗi nếu có -->
+            <c:if test="${not empty error}">
+                <p class="error-message">${error}</p>
+            </c:if>
+
+            <form action="${pageContext.request.contextPath}/login" method="POST">
                 <input type="text" name="username" placeholder="Username" required /> <br/>
                 <input type="password" name="password" placeholder="Password" required /> <br/>
                 <input type="submit" value="Login" />
-                
             </form>
         </div>
     </body>
 </html>
-
