@@ -1,0 +1,51 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 1, 2024, 12:11:36 AM
+    Author     : ADMIN
+*/
+
+/* Container styling */
+.button-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Button styling */
+.action-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Different colors for each button */
+.create {
+    background-color: #4CAF50;
+}
+
+.display {
+    background-color: #2196F3;
+}
+
+.edit {
+    background-color: #FF9800;
+}
+
+.delete {
+    background-color: #F44336;
+}
+
+/* Hover and focus effects */
+.action-button:hover, .action-button:focus {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
