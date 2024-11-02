@@ -10,26 +10,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.productionplan.PlanCampain;
+import model.productionplan.PlanCampaign;
 import model.productionplan.Product;
-import model.productionplan.ScheduleCampain;
-
+import model.productionplan.ScheduleCampaign;
 
 /**
  *
  * @author ADMIN
  */
-public class ScheduleDBContext extends DBContext<ScheduleCampain> {
+public class ScheduleDBContext extends DBContext<ScheduleCampaign> {
 
-    public void insertSchedules(ArrayList<ScheduleCampain> schedules) {
-        String sql = "INSERT INTO [dbo].[ScheduleCampaign] ([camid], [date], [K], [quantity]) VALUES (?, ?, ?, ?)";
+    public void insertSchedules(ArrayList<ScheduleCampaign> schedules) {
+        String sql = "INSERT INTO [dbo].[ScheduleCampaign] ([canid], [date], [shift], [quantity]) VALUES (?, ?, ?, ?)";
         PreparedStatement stm = null;
 
         try {
             connection.setAutoCommit(false);
 
             stm = connection.prepareStatement(sql);
-            for (ScheduleCampain model : schedules) {
+            for (ScheduleCampaign model : schedules) {
                 stm.setInt(1, model.getCam().getId());
                 stm.setDate(2, model.getDate());
                 stm.setString(3, model.getK());
@@ -52,9 +51,15 @@ public class ScheduleDBContext extends DBContext<ScheduleCampain> {
         }
     }
 
-    @Override
-    public void update(ScheduleCampain model) {
-        String sql_update = "UPDATE [dbo].[ScheduleCampaign] SET [camid] = ?, [date] = ?, [K] = ?, [quantity] = ? WHERE scid=?";
+     @Override
+    public void update(ScheduleCampaign model) {
+        String sql_update = "UPDATE [dbo].[ScheduleCampaign]\n"
+                + "   SET [canid] = ?\n"
+                + "      ,[date] = ?\n"
+                + "      ,[shift] = ?\n"
+                + "      ,[quantity] = ?\n"
+                + " WHERE scid=?";
+
         PreparedStatement stm_update = null;
         try {
             stm_update = connection.prepareStatement(sql_update);
@@ -67,29 +72,23 @@ public class ScheduleDBContext extends DBContext<ScheduleCampain> {
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            closeResources(stm_update, connection);
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     @Override
-    public void delete(ScheduleCampain model) {
-        String sql_update = "DELETE FROM [dbo].[ScheduleCampaign] WHERE scid=?";
-        PreparedStatement stm_update = null;
-        try {
-            stm_update = connection.prepareStatement(sql_update);
-            stm_update.setInt(1, model.getId());
-            stm_update.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            closeResources(stm_update, connection);
-        }
+    public void delete(ScheduleCampaign model) {
+
     }
 
     @Override
-    public ArrayList<ScheduleCampain> list() {
-        ArrayList<ScheduleCampain> sches = new ArrayList<>();
-        String sql = "SELECT [scid], [camid], [date], [K], [quantity] FROM [dbo].[ScheduleCampaign]";
+    public ArrayList<ScheduleCampaign> list() {
+        ArrayList<ScheduleCampaign> sches = new ArrayList<>();
+        String sql = "SELECT [scid], [canid], [date], [shift], [quantity] FROM [dbo].[ScheduleCampaign]";
         PreparedStatement stm = null;
         ResultSet rs = null;
 
@@ -98,15 +97,15 @@ public class ScheduleDBContext extends DBContext<ScheduleCampain> {
             rs = stm.executeQuery();
 
             while (rs.next()) {
-                ScheduleCampain sche = new ScheduleCampain();
+                ScheduleCampaign sche = new ScheduleCampaign();
                 sche.setId(rs.getInt("scid"));
 
-                PlanCampain pc = new PlanCampain();
-                pc.setId(rs.getInt("camid"));
+                PlanCampaign pc = new PlanCampaign();
+                pc.setId(rs.getInt("canid"));
                 sche.setCam(pc);
 
                 sche.setDate(rs.getDate("date"));
-                sche.setK(rs.getString("K"));
+                sche.setK(rs.getString("shift"));
                 sche.setQuantity(rs.getInt("quantity"));
 
                 sches.add(sche);
@@ -121,8 +120,11 @@ public class ScheduleDBContext extends DBContext<ScheduleCampain> {
     }
 
     @Override
-    public ScheduleCampain get(int id) {
-        String sql = "SELECT sc.[scid], sc.[camid], sc.[date], sc.[K], sc.[quantity], pl.[pid] FROM [dbo].[ScheduleCampaign] sc INNER JOIN [dbo].[PlanCampaign] pl ON sc.[camid] = pl.[camid] WHERE sc.[scid] = ?";
+    public ScheduleCampaign get(int id) {
+        String sql = "SELECT sc.scid, sc.canid, sc.date, sc.shift, sc.quantity, pl.pid \n"
+                + "FROM dbo.ScheduleCampaign sc \n"
+                + "INNER JOIN dbo.PlanCampaign pl ON sc.canid = pl.canid \n"
+                + "WHERE sc.scid = ?";
         PreparedStatement stm = null;
         ResultSet rs = null;
 
@@ -132,11 +134,11 @@ public class ScheduleDBContext extends DBContext<ScheduleCampain> {
             rs = stm.executeQuery();
 
             if (rs.next()) {
-                ScheduleCampain sche = new ScheduleCampain();
+                ScheduleCampaign sche = new ScheduleCampaign();
                 sche.setId(rs.getInt("scid"));
 
-                PlanCampain pl = new PlanCampain();
-                pl.setId(rs.getInt("camid"));
+                PlanCampaign pl = new PlanCampaign();
+                pl.setId(rs.getInt("canid"));
 
                 Product p = new Product();
                 p.setId(rs.getInt("pid"));
@@ -144,7 +146,7 @@ public class ScheduleDBContext extends DBContext<ScheduleCampain> {
 
                 sche.setCam(pl);
                 sche.setDate(rs.getDate("date"));
-                sche.setK(rs.getString("K"));
+                sche.setK(rs.getString("shift"));
                 sche.setQuantity(rs.getInt("quantity"));
                 return sche;
             }
@@ -157,7 +159,7 @@ public class ScheduleDBContext extends DBContext<ScheduleCampain> {
     }
 
     @Override
-    public void insert(ScheduleCampain model) {
+    public void insert(ScheduleCampaign model) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

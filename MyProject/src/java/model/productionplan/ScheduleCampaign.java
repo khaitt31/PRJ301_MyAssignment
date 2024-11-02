@@ -10,10 +10,10 @@ import java.sql.*;
  *
  * @author ADMIN
  */
-public class ScheduleCampain {
+public class ScheduleCampaign {
 
     private int id;
-    private PlanCampain cam;
+    private PlanCampaign cam;
     private Date date;
     private String k;
     private int quantity;
@@ -26,11 +26,11 @@ public class ScheduleCampain {
         this.id = id;
     }
 
-    public PlanCampain getCam() {
+    public PlanCampaign getCam() {
         return cam;
     }
 
-    public void setCam(PlanCampain cam) {
+    public void setCam(PlanCampaign cam) {
         this.cam = cam;
     }
 

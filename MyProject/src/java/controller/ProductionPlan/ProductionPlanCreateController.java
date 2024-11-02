@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import javax.crypto.interfaces.PBEKey;
 import model.productionplan.Plan;
-import model.productionplan.PlanCampain;
+import model.productionplan.PlanCampaign;
 import model.productionplan.Product;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class ProductionPlanCreateController extends HttpServlet {
             Product p = new Product();
             p.setId(Integer.parseInt(pid));
 
-            PlanCampain c = new PlanCampain();
+            PlanCampaign c = new PlanCampaign();
             c.setProduct(p);
             String raw_quantity = request.getParameter("quantity" + pid);
             String raw_effort = request.getParameter("effort" + pid);

@@ -19,19 +19,18 @@ public class DepartmentDBContext extends DBContext<Department> {
 
     public ArrayList<Department> get(String type) {
         ArrayList<Department> depts = new ArrayList<>();
-        
+
         String sql = "SELECT [did]\n"
                 + "      ,[dname]\n"
                 + "      ,[dtype]\n"
-                + "  FROM [Pro1].[dbo].[Department]\n"
+                + "  FROM [Pro2].[dbo].[Department]\n"
                 + "  WHERE dtype = ?";
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, type);
             ResultSet rs = stm.executeQuery();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 Department d = new Department();
                 d.setId(rs.getInt("did"));
                 d.setName(rs.getString("dname"));
@@ -40,9 +39,7 @@ public class DepartmentDBContext extends DBContext<Department> {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 stm.close();
                 connection.close();
@@ -50,7 +47,7 @@ public class DepartmentDBContext extends DBContext<Department> {
                 Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         return depts;
     }
 
@@ -71,8 +68,25 @@ public class DepartmentDBContext extends DBContext<Department> {
 
     @Override
     public ArrayList<Department> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Department> departments = new ArrayList<>();
+        String sql = "SELECT did, dname, dtype FROM [dbo].[Department]"; // Câu lệnh SQL để lấy danh sách phòng ban
+
+        try (PreparedStatement stm = connection.prepareStatement(sql);
+             ResultSet rs = stm.executeQuery()) {
+            while (rs.next()) {
+                Department dept = new Department();
+                dept.setId(rs.getInt("did")); // Gán ID
+                dept.setName(rs.getString("dname")); // Gán tên
+                dept.setType(rs.getString("dtype"));
+                // Gán các thuộc tính khác nếu cần
+                departments.add(dept);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return departments;
     }
+
 
     @Override
     public Department get(int id) {

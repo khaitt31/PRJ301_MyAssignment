@@ -8,7 +8,7 @@ package model.productionplan;
  *
  * @author ADMIN
  */
-public class PlanCampain {
+public class PlanCampaign {
     private int id;
     private Plan plan;
     private Product product;
