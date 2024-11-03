@@ -96,7 +96,7 @@ public class PlanDBContext extends DBContext<Plan> {
             connection.setAutoCommit(false);
 
             // Cập nhật bảng Plan
-            String sql_update_plan = "UPDATE [Plan] SET [startTime] = ?, [endTime] = ?, [did] = ? WHERE [plid] = ?";
+            String sql_update_plan = "UPDATE [Plan] SET [startd] = ?, [endd] = ?, [did] = ? WHERE [plid] = ?";
             PreparedStatement stm_update_plan = connection.prepareStatement(sql_update_plan);
             stm_update_plan.setDate(1, model.getStart());
             stm_update_plan.setDate(2, model.getEnd());
@@ -111,7 +111,7 @@ public class PlanDBContext extends DBContext<Plan> {
             stm_delete_campaigns.executeUpdate();
 
             // Thêm các PlanCampaign mới
-            String sql_insert_campaign = "INSERT INTO [PlanCampaign] ([plid], [pid], [quantity], [unitEffort]) VALUES (?, ?, ?, ?)";
+            String sql_insert_campaign = "INSERT INTO [PlanCampaign] ([plid], [pid], [quantity], [estimatedeffort]) VALUES (?, ?, ?, ?)";
             PreparedStatement stm_insert_campaign = connection.prepareStatement(sql_insert_campaign);
             for (PlanCampaign campaign : model.getCampains()) {
                 stm_insert_campaign.setInt(1, model.getId());

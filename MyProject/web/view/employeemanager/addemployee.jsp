@@ -1,19 +1,24 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%-- 
+    Document   : addEmployee
+    Created on : Nov 3, 2024, 11:14:35 PM
+    Author     : ADMIN
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create Production Plan</title>
-
+        <meta charset="UTF-8">
+        <title>Thêm Nhân Viên</title>
         <style>
-            /* Reset and setup */
+            /* Reset và thiết lập chung */
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
-
+            
             body {
                 font-family: Arial, sans-serif;
                 background-color: #f4f4f9;
@@ -24,24 +29,22 @@
                 color: #333;
             }
 
-            /* Main container */
             .container {
                 width: 100%;
-                max-width: 600px;
-                padding: 20px;
+                max-width: 500px;
+                padding: 30px;
                 background-color: #ffffff;
                 border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                 text-align: center;
             }
 
             h2 {
-                margin-bottom: 20px;
+                margin-bottom: 25px;
                 font-size: 24px;
                 color: #333;
             }
 
-            /* Notification message */
             .message {
                 color: green;
                 margin-bottom: 15px;
@@ -49,7 +52,6 @@
                 text-align: center;
             }
 
-            /* Form elements */
             form label {
                 font-size: 14px;
                 color: #555;
@@ -58,28 +60,27 @@
                 text-align: left;
             }
 
-            form input[type="date"],
             form input[type="text"],
             form input[type="number"],
             form select {
                 width: 100%;
-                padding: 8px;
+                padding: 10px;
                 margin-top: 5px;
-                margin-bottom: 15px;
+                margin-bottom: 20px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 font-size: 14px;
             }
 
-            /* Submit button styling */
             .button-group {
                 display: flex;
                 gap: 10px;
                 margin-top: 20px;
             }
+
             .btn-submit, .btn-back {
                 flex: 1;
-                padding: 10px;
+                padding: 12px;
                 font-size: 16px;
                 border: none;
                 border-radius: 4px;
@@ -108,36 +109,13 @@
             .btn-back:hover {
                 background-color: #5a6268;
             }
-
-            /* Table styling */
-            .product-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 15px;
-            }
-
-            .product-table th, .product-table td {
-                border: 1px solid #ddd;
-                padding: 10px;
-                text-align: left;
-            }
-
-            .product-table th {
-                background-color: #f2f2f2;
-                color: #333;
-                font-weight: bold;
-            }
-
-            .product-table tr:nth-child(even) {
-                background-color: #f9f9f9;
-            }
         </style>
     </head>
     <body>
         <div class="container">
-            <h2>Create New Production Plan</h2>
+            <h2>Thêm Nhân Viên Mới</h2>
 
-            <%-- Display session message if available --%>
+            <!-- Hiển thị thông báo nếu có -->
             <c:if test="${not empty sessionScope.message}">
                 <div class="message">
                     ${sessionScope.message}
@@ -145,38 +123,29 @@
                 <c:remove var="message" scope="session"/>
             </c:if>
 
-            <form action="create" method="POST">
-                <label>From:</label>
-                <input type="date" name="from" required />
+            <form action="addemployee" method="POST">
+                <label for="eid">Mã Nhân Viên:</label>
+                <input type="text" id="eid" name="eid" required />
                 
-                <label>To:</label>
-                <input type="date" name="to" required/>
+                <label for="ename">Tên Nhân Viên:</label>
+                <input type="text" id="ename" name="ename" required />
                 
-                <label>Workshop:</label>
-                <select name="did" required>
-                    <c:forEach items="${depts}" var="d">
-                        <option value="${d.id}">${d.name}</option>
+                <label for="salaryLevel">Cấp Bậc Lương:</label>
+                <input type="text" id="salaryLevel" name="salaryLevel" required />
+                
+                <label for="did">Phòng Ban:</label>
+                <select id="did" name="did" required>
+                    <c:forEach items="${departments}" var="dept">
+                        <option value="${dept.id}">${dept.name}</option>
                     </c:forEach>
                 </select>
                 
-                <table class="product-table">
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Estimated Effort (hours)</th>
-                    </tr>
-                    <c:forEach items="${products}" var="p">
-                        <tr>
-                            <td>${p.name}<input type="hidden" name="pid" value="${p.id}"/></td>
-                            <td><input type="number" name="quantity${p.id}" min="0" required/></td>
-                            <td><input type="number" step="0.1" name="effort${p.id}" min="0" required/></td>
-                        </tr>   
-                    </c:forEach>
-                </table>
+                <label for="createdBy">Người Tạo:</label>
+                <input type="text" id="createdBy" name="createdBy" required />
 
                 <div class="button-group">
-                    <input type="submit" class="btn-submit" value="Save"/>
-                    <a href="list" class="btn-back">Quay Về Trang Danh Sách</a>
+                    <input type="submit" class="btn-submit" value="Thêm Nhân Viên"/>
+                    <a href="employeelist" class="btn-back">Quay Về Trang Danh Sách</a>
                 </div>
             </form>
         </div>

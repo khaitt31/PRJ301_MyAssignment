@@ -24,6 +24,22 @@
         <servlet-name>ProductionPlanUpdateController</servlet-name>
         <servlet-class>controller.ProductionPlan.ProductionPlanUpdateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmployeeListController</servlet-name>
+        <servlet-class>controller.employee.EmployeeListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddEmployeeController</servlet-name>
+        <servlet-class>controller.employee.AddEmployeeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditEmployeeController</servlet-name>
+        <servlet-class>controller.employee.EditEmployeeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteEmployeeController</servlet-name>
+        <servlet-class>controller.employee.DeleteEmployeeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductionPlanCreateController</servlet-name>
         <url-pattern>/productionplan/create</url-pattern>
@@ -47,5 +63,21 @@
     <servlet-mapping>
         <servlet-name>ProductionPlanUpdateController</servlet-name>
         <url-pattern>/productionplan/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeListController</servlet-name>
+        <url-pattern>/employeemanager/employeelist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddEmployeeController</servlet-name>
+        <url-pattern>/employeemanager/addemployee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditEmployeeController</servlet-name>
+        <url-pattern>/employeemanager/editemployee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteEmployeeController</servlet-name>
+        <url-pattern>/employeemanager/deleteemployee</url-pattern>
     </servlet-mapping>
 </web-app>

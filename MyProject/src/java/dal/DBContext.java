@@ -20,7 +20,7 @@ public abstract class DBContext<T> {
     public DBContext()
     {
         String user="khai";
-        String pass = "123";
+        String pass = "12345678";
         String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=Pro2 ;trustServerCertificate=true;";
         
         try {

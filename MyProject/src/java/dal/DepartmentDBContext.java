@@ -71,8 +71,7 @@ public class DepartmentDBContext extends DBContext<Department> {
         ArrayList<Department> departments = new ArrayList<>();
         String sql = "SELECT did, dname, dtype FROM [dbo].[Department]"; // Câu lệnh SQL để lấy danh sách phòng ban
 
-        try (PreparedStatement stm = connection.prepareStatement(sql);
-             ResultSet rs = stm.executeQuery()) {
+        try (PreparedStatement stm = connection.prepareStatement(sql); ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 Department dept = new Department();
                 dept.setId(rs.getInt("did")); // Gán ID
@@ -87,10 +86,27 @@ public class DepartmentDBContext extends DBContext<Department> {
         return departments;
     }
 
-
     @Override
     public Department get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public ArrayList<Department> getAllDepartments() {
+        ArrayList<Department> departments = new ArrayList<>();
+        String sql = "SELECT * FROM [Department]";
+        try (PreparedStatement stm = connection.prepareStatement(sql); ResultSet rs = stm.executeQuery()) {
+            while (rs.next()) {
+                Department dept = new Department();
+                dept.setId(rs.getInt("did"));
+                dept.setName(rs.getString("dname"));
+                dept.setType(rs.getString("dtype"));
+                departments.add(dept);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return departments;
+    }
 }
+
+
