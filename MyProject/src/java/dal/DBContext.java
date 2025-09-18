@@ -19,9 +19,9 @@ public abstract class DBContext<T> {
     protected Connection connection;
     public DBContext()
     {
-        String user="khai";
+        String user="sa";
         String pass = "12345678";
-        String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=Pro2 ;trustServerCertificate=true;";
+        String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=swp8;trustServerCertificate=true;";
         
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

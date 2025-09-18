@@ -175,7 +175,7 @@
 
     <div class="button-group">
         <a href="addemployee" class="add">Thêm Nhân Viên</a>
-        <a href="./index.html" class="home">Quay Lại Trang Chủ</a>
+        <a href="employeemanager.html" class="home">Quay Lại Trang Chủ</a>
     </div>
 </div>
 </body>

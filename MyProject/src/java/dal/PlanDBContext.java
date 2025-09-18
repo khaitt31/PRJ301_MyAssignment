@@ -104,22 +104,7 @@ public class PlanDBContext extends DBContext<Plan> {
             stm_update_plan.setInt(4, model.getId());
             stm_update_plan.executeUpdate();
 
-            // Xóa các PlanCampaign cũ liên quan đến Plan
-            String sql_delete_campaigns = "DELETE FROM [PlanCampaign] WHERE [plid] = ?";
-            PreparedStatement stm_delete_campaigns = connection.prepareStatement(sql_delete_campaigns);
-            stm_delete_campaigns.setInt(1, model.getId());
-            stm_delete_campaigns.executeUpdate();
 
-            // Thêm các PlanCampaign mới
-            String sql_insert_campaign = "INSERT INTO [PlanCampaign] ([plid], [pid], [quantity], [estimatedeffort]) VALUES (?, ?, ?, ?)";
-            PreparedStatement stm_insert_campaign = connection.prepareStatement(sql_insert_campaign);
-            for (PlanCampaign campaign : model.getCampains()) {
-                stm_insert_campaign.setInt(1, model.getId());
-                stm_insert_campaign.setInt(2, campaign.getProduct().getId());
-                stm_insert_campaign.setInt(3, campaign.getQuantity());
-                stm_insert_campaign.setFloat(4, campaign.getEstimatedeffort());
-                stm_insert_campaign.executeUpdate();
-            }
 
             connection.commit();
         } catch (SQLException ex) {

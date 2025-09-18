@@ -168,8 +168,8 @@
                     <c:forEach items="${products}" var="p">
                         <tr>
                             <td>${p.name}<input type="hidden" name="pid" value="${p.id}"/></td>
-                            <td><input type="number" name="quantity${p.id}" min="0" required/></td>
-                            <td><input type="number" step="0.1" name="effort${p.id}" min="0" required/></td>
+                            <td><input type="number" name="quantity${p.id}" min="0" /></td>
+                            <td><input type="number" step="0.1" name="effort${p.id}" min="0" /></td>
                         </tr>   
                     </c:forEach>
                 </table>
